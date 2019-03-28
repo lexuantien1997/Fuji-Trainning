@@ -1,11 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <%@ page import="Utils.CookieHelper" %>
 <%@ page import="Common.MessageConstant" %>
 <%
+//  String cusName = (String) request.getAttribute("cusName");
+//  String sex = (String) request.getAttribute("sex");
+//  String bdFrom = (String) request.getAttribute("bdFrom");
+//  String bdTo = (String) request.getAttribute("bdTo");
   String userNameCookie = CookieHelper.getCookie("userName", request);
+
 %>
 <head>
   <style>
@@ -157,26 +162,12 @@
               </td>
               <td>
               	<select id="cboSex">
-                  <%--<% if(sex!=null && sex.length() == 0) { %>--%>
-                    <%--<option value="" <%= sex != null && sex.length() == 0 ? " selected" : ""%> ></option>--%>
                     <option value=""></option>
-                  <%--<% } else { %>--%>
-                    <%--<option value=""></option>--%>
-                  <%--<% } %>--%>
 
-                  <%--<% if(sex!=null && sex.equals("0")) { %>--%>
-                  <%--<option value="0" <%= sex != null && sex.equals("0") ? " selected" : ""%> >Male</option>--%>
                     <option value="0">Male</option>
-                  <%--<% } else { %>--%>
-                  <%--<option value="0">Male</option>--%>
-                  <%--<% } %>--%>
 
-                  <%--<% if(sex!=null && sex.equals("1")) { %>--%>
-                  <%--<option value="1" <%= sex != null && sex.equals("1") ? " selected" : ""%> >Female</option>--%>
-                    <option value="1">Female</option>
-                  <%--<% } else { %>--%>
-                  <%--<option value="1">Female</option>--%>
-                  <%--<% } %>--%>
+                     <option value="1">Female</option>
+
 				        </select>
               </td>
             </tr>
@@ -228,7 +219,7 @@
 	window.onload = function() {
 		console.log("ready");
 
-    ajaxSearchTable("POST", "<%= request.getContextPath() + UrlConstant.URL_SEARCH %>","type=all");
+    ajaxSearchTable("POST", "/Fuji_war/search","type=all");
 
 		var btnSearch = document.getElementById("btnSearch");
 
@@ -239,17 +230,17 @@
       var txtBirthdayTo = document.getElementById("txtBirthdayTo").value;
       var err = "";
       if(!validateDatetime(txtBirthdayForm) && txtBirthdayForm!= "") {
-          err = "<%= MessageConstant.VALIDATE_BDFROM %>";
+          err = "Invalid birthday (From) \n";
       }
 
       if(!validateDatetime(txtBirthdayTo) && txtBirthdayTo!="") {
-          err += "<%= MessageConstant.VALIDATE_BDTO %>";
+          err += "Invalid birthday (To)";
       }
 
       if(err) { alert(err); return; }
 
       if(new Date(txtBirthdayForm) > new Date(txtBirthdayTo)) {
-          alert("<%= MessageConstant.RANGE_OUTPUT_BIRTHDAY %>");
+          alert("There is an error in the range input of Birthday");
       }
 
       var selector = document.getElementById("cboSex");
@@ -347,9 +338,9 @@
     }
 
     if(ids.length == 0) {
-      alert("<%= MessageConstant.NO_ROW2DELETE%>");
+      alert("??????????");
     } else {
-      ajaxSearchTable("POST", "<%= request.getContextPath() + UrlConstant.URL_SEARCH %>", "type=delete&ids=" + ids);
+      ajaxSearchTable("POST", "/Fuji_war/search","type=delete&ids=" + ids);
     }
 
   }

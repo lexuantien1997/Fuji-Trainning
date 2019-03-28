@@ -117,7 +117,7 @@
       <p class="lblErrorMessage" id="lblErrorMessage"></p>
     </div>
 
-    <form class="frm-ct" method="POST">
+    <div class="frm-ct" >
       <table>
         <tr>
           <td>
@@ -178,9 +178,9 @@
       </table>
       <div>
         <input type="button" id="btnSave" value="Save" >
-        <button id="btnSave" onclick="buttonClearClick(this)">Clear</button>
+        <input id="btnClear" type="button" value="Clear">
       </div>
-    </form>
+    </div>
 
 
     <footer>
@@ -196,7 +196,19 @@
 
       var btnSave = document.getElementById("btnSave");
 
-      btnSave.addEventListener("click", function (ev) {
+        var btnClear = document.getElementById("btnClear");
+
+        btnClear.addEventListener("click", function (ev) {
+            ev.preventDefault();
+            document.getElementById("lblErrorMessage").innerText = "";
+            document.getElementById("txtCustomerName").value = "";
+            document.getElementById("txtBirthday").value = "";
+            document.getElementById("txtEmail").value = "";
+            document.getElementById("txaAddress").value = "";
+            document.getElementById("cboSex").value = "";
+        })
+
+            btnSave.addEventListener("click", function (ev) {
         ev.preventDefault();
 
 
@@ -242,16 +254,6 @@
               ajaxCustomer("POST", "<%= request.getContextPath() + UrlConstant.URL_EDIT %>", parameter);
           }
       });
-    }
-
-    function buttonClearClick(e) {
-        e.preventDefault();
-        document.getElementById("lblErrorMessage").innerText = "";
-        document.getElementById("txtCustomerName").value = "";
-        document.getElementById("txtBirthday").value = "";
-        document.getElementById("txtEmail").value = "";
-        document.getElementById("txaAddress").value = "";
-
     }
 
     function validateDatetime(str) {
