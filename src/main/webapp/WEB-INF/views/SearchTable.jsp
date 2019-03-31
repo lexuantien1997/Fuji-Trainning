@@ -101,7 +101,7 @@
   </div>
 
   <div>
-    <button id="btnAddnew">Add New</button>
+    <button id="btnAddnew" onclick="buttonAddNewClick()">Add New</button>
     <button id="btnDelete" <%=disableDelete%> onclick="buttonDeleteClick()">Delete</button>
   </div>
 

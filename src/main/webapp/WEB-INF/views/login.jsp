@@ -7,8 +7,8 @@
 
 <%
 	// Get all attribute from login servlet
-	String err =  (String)request.getAttribute("err");
-	User user = (User)request.getAttribute("user");
+	String err =  (String)request.getAttribute("err"); // get error response from LoginController
+	User user = (User)request.getAttribute("user"); // get user value response from LoginController
 %>
 
 <!DOCTYPE html>
@@ -103,12 +103,14 @@
               <tr>
                 <td>User Id:</td>
                 <td>
+                  <%-- pass userid value, set max length is 8 --%>
                   <input type="text" size="25" value="<%= user.getUserId() %>" name="userId" id="userId" maxlength="8" >
                 </td>
               </tr>
               <tr>
                 <td>Password:</td>
                 <td>
+                  <%-- pass password value, set max length is 8 --%>
                   <input type="password" size="25" value="<%= user.getPassword()  %>" name="password" id="password" maxlength="8" >
                 </td>
               </tr>            
@@ -142,8 +144,8 @@
 			// Prevent it auto reload page
 			e.preventDefault();
 			// clear all data
-			document.getElementById("userId").value = "";
-			document.getElementById("password").value = "";
+			document.getElementById("userId").value =
+			document.getElementById("password").value =
 			document.getElementById("lb-error").innerHTML = "";
 		});
 	}

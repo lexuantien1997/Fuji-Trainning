@@ -101,7 +101,7 @@
     <br>
     <div class="top-msg">
       <div id="lblUserName">Welcome <%=userNameCookie%></div>
-      <div><a id="llblLogout" href="<%= request.getContextPath() %>/logout">Logout</a></div>
+      <div><a id="llblLogout" href="<%= request.getContextPath() + UrlConstant.URL_LOGOUT %>">Logout</a></div>
     </div>
     <br>
 

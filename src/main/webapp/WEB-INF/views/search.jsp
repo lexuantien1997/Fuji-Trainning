@@ -4,6 +4,7 @@
 <html>
 <%@ page import="Utils.CookieHelper" %>
 <%@ page import="Common.MessageConstant" %>
+<%@ page import="Common.VariableConstant" %>
 <%
 //  String cusName = (String) request.getAttribute("cusName");
 //  String sex = (String) request.getAttribute("sex");
@@ -134,7 +135,7 @@
     <br>
     <div class="top-msg">
       <div id="lblUserName">Welcome <%=userNameCookie%></div>
-      <div><a id="llblLogout" href="<%= request.getContextPath() %>/logout">Logout</a></div>
+      <div><a id="llblLogout" href="<%= request.getContextPath() + UrlConstant.URL_LOGOUT %>">Logout</a></div>
     </div>
     <br>
     <hr class="rect">
@@ -218,8 +219,8 @@
 	// Waiting window load success
 	window.onload = function() {
 		console.log("ready");
-
-    ajaxSearchTable("POST", "/Fuji_war/search","type=all");
+      // ajaxSearchTable("POST", "/Fuji_war/search","type=all");
+      ajaxSearchTable("POST", "<%= request.getContextPath() + UrlConstant.URL_SEARCH %>","type=all");
 
 		var btnSearch = document.getElementById("btnSearch");
 
@@ -230,17 +231,21 @@
       var txtBirthdayTo = document.getElementById("txtBirthdayTo").value;
       var err = "";
       if(!validateDatetime(txtBirthdayForm) && txtBirthdayForm!= "") {
-          err = "Invalid birthday (From) \n";
+          // err = "Invalid birthday (From) \n";
+          err = "<%= MessageConstant.VALIDATE_BDFROM %>" + "\n";
       }
 
       if(!validateDatetime(txtBirthdayTo) && txtBirthdayTo!="") {
-          err += "Invalid birthday (To)";
+          // err += "Invalid birthday (To)";
+          err = "<%= MessageConstant.VALIDATE_BDTO %>";
       }
 
       if(err) { alert(err); return; }
 
       if(new Date(txtBirthdayForm) > new Date(txtBirthdayTo)) {
-          alert("There is an error in the range input of Birthday");
+          // alert("There is an error in the range input of Birthday");
+          alert("<%= MessageConstant.RANGE_OUTPUT_BIRTHDAY %>");
+          return;
       }
 
       var selector = document.getElementById("cboSex");
@@ -263,6 +268,10 @@
         rows[i].getElementsByTagName("INPUT")[0].checked = chkAll.checked;
     }
   };
+
+  function buttonAddNewClick() {
+      window.location.href = "<%= request.getContextPath() + UrlConstant.URL_EDIT %>";
+  }
 
   function CheckUncheckHeader() {
     //Determine the reference CheckBox in Header row.
@@ -338,9 +347,10 @@
     }
 
     if(ids.length == 0) {
-      alert("??????????");
+      alert("<%= MessageConstant.NO_ROW2DELETE %>");
     } else {
-      ajaxSearchTable("POST", "/Fuji_war/search","type=delete&ids=" + ids);
+      // ajaxSearchTable("POST",  "/Fuji_war/search","type=delete&ids=" + ids);
+      ajaxSearchTable("POST",  "<%= request.getContextPath() + UrlConstant.URL_SEARCH %>", "type=delete&ids=" + ids);
     }
 
   }

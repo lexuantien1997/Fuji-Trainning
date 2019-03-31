@@ -13,4 +13,5 @@ public class UrlConstant {
 	
 	public static final String URL_LOGIN = "/login";
 	public static final String URL_EDIT = "/edit";
+	public static final String URL_LOGOUT = "/logout";
 }
